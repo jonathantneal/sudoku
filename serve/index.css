@@ -1,0 +1,246 @@
+@import "./layout.css";
+@import "./theme.css";
+
+html {
+	background-color: var(--Page);
+	color: var(--PageText);
+}
+
+canvas {
+	position: fixed;
+	inset: 0 0 auto 0;
+	width: 100dvw;
+	height: calc(100dvh / 5 * 4);
+	pointer-events: none;
+}
+
+body {
+	display: flex;
+
+	/* Layout */
+	place-items: center;
+	place-content: center;
+}
+
+sudoku-game {
+	display: grid;
+
+	/* Layout */
+	height: -webkit-fill-available;
+	height: stretch;
+
+	&:not(:defined) {
+		/* Appearance */
+		opacity: 0;
+	}
+
+	&::part(screen) {
+		/* Layout */
+		gap: 1rem;
+		padding-block: 2rem;
+		place-content: space-between;
+		place-items: center;
+
+		/* Text */
+		font-family: var(--GeometricHumanist);
+		font-variant-numeric: tabular-nums;
+		font-weight: 300;
+	}
+}
+
+/* Cell Spacing */
+
+sudoku-game {
+	--size: clamp(1.5rem, calc(1.5rem + (4.375 * ((100vw - 320px) / 48))), 2.625rem);
+
+	&::part(cell) {
+		display: flex;
+
+		/* Layout */
+		block-size: var(--size);
+		inline-size: var(--size);
+		padding: 0.25rem;
+		place-items: center;
+		place-content: center;
+
+		/* Text */
+		font-size: calc(var(--size) / 5 * 4);
+		line-height: 1;
+
+		/* Appearance */
+		background-color: var(--Cell);
+		box-shadow:
+			var(--CellEdge) var(--CellInlineStartSize, 0.5px) 0 0 0 inset,
+			var(--CellEdge) calc(0px - var(--CellInlineEndSize, 0.5px)) 0 0 0 inset,
+			var(--CellEdge) 0 var(--CellBlockStartSize, 0.5px) 0 0 inset,
+			var(--CellEdge) 0 calc(0px - var(--CellBlockEndSize, 0.5px)) 0 0 inset;
+		color: var(--CellFill);
+	}
+
+	&::part(cell nth-col-3),
+	&::part(cell nth-col-6) {
+		/* Layout */
+		padding-inline-end: calc(0.25rem + 2px);
+
+		/* Appearance */
+		--CellInlineEndSize: 2px;
+	}
+
+	&::part(cell nth-col-4),
+	&::part(cell nth-col-7) {
+		/* Layout */
+		padding-inline-start: calc(0.25rem + 2px);
+
+		/* Appearance */
+		--CellInlineStartSize: 2px;
+	}
+
+	&::part(cell nth-row-3),
+	&::part(cell nth-row-6) {
+		/* Layout */
+		padding-block-end: calc(0.25rem + 2px);
+
+		/* Appearance */
+		--CellBlockEndSize: 2px;
+	}
+
+	&::part(cell nth-row-4),
+	&::part(cell nth-row-7) {
+		/* Layout */
+		padding-block-start: calc(0.25rem + 2px);
+
+		/* Appearance */
+		--CellBlockStartSize: 2px;
+	}
+
+	&::part(cell nth-col-1) {
+		/* Layout */
+		padding-inline-start: calc(0.25rem + 2px);
+
+		/* Appearance */
+		--CellInlineStartSize: 3px;
+	}
+
+	&::part(cell nth-col-9) {
+		/* Layout */
+		padding-inline-end: calc(0.25rem + 2px);
+
+		/* Appearance */
+		--CellInlineEndSize: 3px;
+	}
+
+	&::part(cell nth-row-1) {
+		/* Layout */
+		padding-block-start: calc(0.25rem + 2px);
+
+		/* Appearance */
+		--CellBlockStartSize: 3px;
+	}
+
+	&::part(cell nth-row-9) {
+		/* Layout */
+		padding-block-end: calc(0.25rem + 2px);
+
+		/* Appearance */
+		--CellBlockEndSize: 3px;
+	}
+}
+
+/* Cell Styling */
+
+sudoku-game {
+	&::part(cell focus) {
+		/* Appearance */
+		box-shadow: #00008888 0 0 0 4px inset
+	}
+
+	&::part(cell peer-box) {
+		/* Appearance */
+		background-color: var(--CellSelectedPeerBox);
+	}
+
+	&::part(cell peer-row),
+	&::part(cell peer-col) {
+		/* Appearance */
+		background-color: var(--CellSelectedPeer);
+	}
+
+	&::part(cell focus-digit) {
+		/* Text */
+		font-weight: 500;
+
+		/* Appearance */
+		color: var(--CellSelectedFill);
+	}
+
+	&::part(cell invalid) {
+		/* Appearance */
+		background-color: var(--CellInvalid);
+		color: var(--CellInvalidFill);
+	}
+}
+
+/* Button Styling */
+
+sudoku-game {
+	&::part(controls) {
+		/* Layout */
+		gap: 0.25rem;
+	}
+
+	&::part(button) {
+		display: flex;
+
+		/* Layout */
+		block-size: var(--size);
+		inline-size: var(--size);
+		padding: 0.5rem;
+		place-items: center;
+		place-content: center;
+
+		/* Text */
+		font-size: var(--size);
+		font-weight: 500;
+
+		/* Appearance */
+		background-color: var(--DigipadButton);
+		border-radius: 0.5rem;
+		box-shadow: #0005 0 0 0 1px inset;
+		color: var(--DigipadButtonFill);
+		cursor: pointer;
+	}
+
+	&::part(button active) {
+		/* Appearance */
+		background-color: var(--DigipadButtonActive);
+		translate: 0 1px;
+	}
+
+	&::part(button solved) {
+		/* Appearance */
+		color: color-mix(in srgb, var(--DigipadButtonFill) 50%, transparent);
+	}
+
+	&::part(button disabled) {
+		/* Appearance */
+		color: color-mix(in srgb, var(--DigipadButtonFill) 50%, transparent);
+
+		/* Behavior */
+		pointer-events: none;
+	}
+}
+
+.solved-message {
+	position: fixed;
+
+	/* Layout */
+	inset: 50% 0 auto;
+
+	/* Text */
+	font-size: 4rem;
+	font-family: var(--HumanistFont);
+	text-align: center;
+
+	/** Appearance */
+	text-shadow: 0 5px #fff, 0 -5px #fff, 5px 0 #fff, -5px 0 #fff;
+}

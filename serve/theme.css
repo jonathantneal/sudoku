@@ -1,0 +1,34 @@
+:root {
+	/* Colors */
+	--Page: #f8f7fc;
+	--PageFill: #000000;
+	--Grid: #a9a7b5;
+	--Cell: #ffffff;
+	--CellFill: #5762ce;
+	--CellEdge: #8db3d9;
+	--CellSelected: #ced3f3;
+	--CellSelectedFill: #1e1e6e;
+	--CellSelectedPeer: #ededf5;
+	--CellSelectedPeerBox: #f5f5fa;
+	--CellInvalid: #cf2929;
+	--CellInvalidFill: #ffecec;
+	--CellValid: #80eaff;
+	--DigipadButton: #f8f7fc;
+	--DigipadButtonFill: #1e2882;
+
+	/* Typography */
+	--GeometricHumanist: Avenir,
+		Montserrat,
+		Corbel,
+		'URW Gothic',
+		source-sans-pro,
+		sans-serif;
+	font-weight: normal;
+	--HumanistFont: Seravek,
+		'Gill Sans Nova',
+		Ubuntu,
+		Calibri,
+		'DejaVu Sans',
+		source-sans-pro,
+		sans-serif;
+}

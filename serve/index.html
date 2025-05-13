@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en-US">
+	<head>
+		<title>Sudoku</title>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="apple-mobile-web-app-title" content="Sudoku" />
+		<meta name="application-name" content="Sudoku" />
+		<meta name="description" content="A clean and intuitive Sudoku game with a focus on care-free play." />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#f8f7fc" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta property="og:title" content="Sudoku" />
+		<meta property="og:description" content="A clean and intuitive Sudoku game with a focus on care-free play." />
+		<meta property="og:image" content="https://jonneal.dev/sudoku/sudoku.webp" />
+		<meta property="og:url" content="https://jonneal.dev/sudoku" />
+
+		<link rel="stylesheet" href="./index.css" />
+		<link rel="icon" type="image/png" href="./apple-touch-icon.png" />
+		<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+		<script type="module">
+			import { SudokuGameElement } from "./sudoku-element.js"
+			import { createConfetti } from "./sudoku-confetti.js"
+
+			customElements.define("sudoku-game", SudokuGameElement)
+
+			const confetti = createConfetti(document.body)
+
+			for (const game of document.querySelectorAll("sudoku-game")) {
+				game.addEventListener("game:solved", (event) => {
+					confetti.start()
+				})
+
+				game.addEventListener("game:reset", (event) => {
+					confetti.stop()
+				})
+			}
+		</script>
+	</head>
+	<body>
+		<sudoku-game>
+			<span slot="solved-message" class="solved-message">YOU WIN</span>
+		</sudoku-game>
+	</body>
+</html>

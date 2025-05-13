@@ -1,0 +1,31 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	/* Layout */
+	overflow: hidden;
+
+	/* Text */
+	font: 100%/1.5 system-ui;
+	-webkit-font-smoothing: antialiased;
+	tab-size: 4;
+	text-rendering: optimizeLegibility;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+
+	/* Appearance */
+	-webkit-tap-highlight-color: transparent;
+}
+
+html {
+	display: grid;
+
+	/* Layout */
+	height: 100dvh;
+}
+
+body {
+	/* Layout */
+	margin: 0;
+}
